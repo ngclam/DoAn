@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LapTrinhWebBanCaPhe.Context.OrderDetail>
+
+@{
+    ViewBag.Title = "OrderDetails";
+}
+
+@if (Model != null && Model.Any())
+{
+    int i = 1;
+    foreach (var item in Model.Take(1))
+    {
+        <h2>Chi tiết Đơn hàng <span style="color:red">#@item.OrderId</span></h2>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Tên sản phẩm
+            </th>
+            <th>
+                Giá sản phẩm
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Tổng tiền
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@i</td>
+                <td>
+                    @item.Product.ProName
+                </td>
+                <td>
+                    @item.Price.000
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @(item.Quantity * item.Price).000
+                </td>
+            </tr>
+            i++;
+        }
+    </table>
+    <h4 style="font-weight:600;text-align:right"> <u style="color:red">TỔNG GIÁ TRỊ ĐƠN HÀNG :</u>  @Model.Sum(x => x.Quantity * x.Price).000VNĐ</h4>
+}
+<div>
+    @Html.ActionLink("Back to List", "IndexOrder")
+</div>

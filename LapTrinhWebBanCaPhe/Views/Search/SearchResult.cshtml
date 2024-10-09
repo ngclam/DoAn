@@ -1,0 +1,57 @@
+﻿@using LapTrinhWebBanCaPhe.Context;
+@model IEnumerable<Product> 
+@{
+    ViewBag.Title = "SearchResult";
+}
+
+<style>
+    h2{
+        text-align:center;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        padding-top:20px;
+    }
+    h3{
+        text-align: center;
+        color:red;
+        padding-bottom:100px;
+    }
+    hr {
+        text-align: center;
+        width: 100px;
+        border-width: 4px;
+        border-color: #E57905;
+    }
+</style>
+<h2>Kết quả tìm kiếm <h2>
+<hr />
+    @if (Model.Count() == 0)
+    {
+        <h3>Không tìm thấy sản phẩm</h3>
+    }
+    else
+    {
+        <section class="product spad" style="margin-top:-70px">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-lg-3 col-md-6 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="../../Content/img/product/@item.ProImage">
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h6><a href="@Url.Action("Index", "MenuProductDetail", new {Id = item.ProId })">@item.ProName</a></h6>
+                                            <h5>@item.ProPrice đ</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    }

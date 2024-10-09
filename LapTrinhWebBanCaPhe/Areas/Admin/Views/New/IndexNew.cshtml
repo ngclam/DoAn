@@ -1,0 +1,55 @@
+﻿@model IEnumerable<LapTrinhWebBanCaPhe.Context.News>
+
+@{
+    ViewBag.Title = "IndexNew";
+}
+
+<p style="margin:10px">
+    <a href="@Url.Action("Create")" class="btn btn-sm btn-primary">Thêm mới nhà cung cấp</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Ảnh nhà cung cấp")
+        </th>
+        <th>
+            @Html.DisplayName("Số điện thoại")
+        </th>
+        <th>
+            @Html.DisplayName("Tên nhà cung cấp")
+        </th>
+        <th>
+            @Html.DisplayName("Nguyên liệu cung cấp")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img decoding="async" src="~/Content/img/blog/@item.NewsImage" asp-append-version="true" width="100px" height="100px" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewsDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NewsTitle)
+        </td>
+                <td>
+            @Html.DisplayFor(modelItem => item.NewsDescription)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit",new { id = item.NewsId })" class="btn btn-sm btn-primary">Edit</a> <br />
+            <a href="@Url.Action("Details",new { id = item.NewsId })" class="btn btn-sm btn-success">Details</a> <br />
+            <a href="@Url.Action("Delete",new { id = item.NewsId })" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
+<style>
+    td a {
+        width: 60px;
+        margin-top: 5px;
+    }
+</style>

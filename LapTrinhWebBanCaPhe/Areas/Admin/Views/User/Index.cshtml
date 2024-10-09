@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LapTrinhWebBanCaPhe.Context.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p style="margin:10px">
+    <a href="@Url.Action("Create")" class="btn btn-sm btn-primary">Thêm tài khoản</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Tên người dùng")
+        </th>
+        <th>
+            @Html.DisplayName("Email")
+        </th>
+        <th>
+            @Html.DisplayName("Mật khẩu")
+        </th>
+        <th>
+            @Html.DisplayName("Quyền admin")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.isAdmin)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit",new { id = item.UserId })" class="btn btn-sm btn-primary">Edit</a>
+                <a href="@Url.Action("Details",new { id = item.UserId })" class="btn btn-sm btn-success">Details</a>
+                <a href="@Url.Action("Delete",new { id = item.UserId })" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+<style>
+    td a {
+        width: 60px;
+        margin-top: 5px;
+    }
+</style>

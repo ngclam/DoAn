@@ -1,0 +1,78 @@
+﻿@model LapTrinhWebBanCaPhe.Models.HomeModel
+
+@{
+    ViewBag.Title = "IndexOrder";
+}
+
+<h2>Đơn hàng</h2>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Mã đơn hàng")
+        </th>
+        <th>
+            @Html.DisplayName("Ngày đặt hàng")
+        </th>
+        <th>
+            @Html.DisplayName("Phương thức thanh toán")
+        </th>
+        <th>
+            @Html.DisplayName("Họ")
+        </th>
+        <th>
+            @Html.DisplayName("Tên")
+        </th>
+        <th>
+            @Html.DisplayName("Số điện thoại")
+        </th>
+        <th>
+            @Html.DisplayName("Email")
+        </th>
+        <th>
+            @Html.DisplayName("Địa chỉ")
+        </th>
+        <th>
+            @Html.DisplayName("Ghi chú")
+        </th>
+        <th>
+            @Html.DisplayName("Chi tiết đơn hàng")
+        </th>
+    </tr>
+
+    @foreach (var item in Model.ListOrder)
+    {
+        <tr>
+            <td>
+                @item.OrderId
+            </td>
+            <td>
+                @item.OrderDate
+            </td>
+            <td>
+                @item.PaymentType
+            </td>
+            <td>
+                @item.CustomerFirstName
+            </td>
+            <td>
+                @item.CustomerLastName
+            </td>
+            <td>
+                @item.CustomerPhone
+            </td>
+            <td>
+                @item.CustomerEmail
+            </td>
+            <td>
+                @item.CustomerAddress
+            </td>
+            <td>
+                @item.CustomerNote
+            </td>
+            <td>
+                <a href="@Url.Action("OrderDetails", "Order", new {Id = item.OrderId })" class="btn btn-sm btn-success">Details</a>
+            </td>
+        </tr>
+    }
+</table>

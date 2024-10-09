@@ -1,0 +1,148 @@
+﻿@using LapTrinhWebBanCaPhe.Models
+@{
+    ViewBag.Title = "Index";
+}
+<style>
+    h2{
+        text-align:center;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        padding-top:20px;
+    }
+</style>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="../../Content/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>Thanh toán</h2>
+                    <div class="breadcrumb__option">
+                        <a href="@Url.Action("Index", "HomeMain")">Trang chủ</a>
+                        <span>Thanh toán</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+    <div class="container">
+        @{
+            if (Session["Cart"] != null)
+            {
+                <div class="checkout__form">
+                    <h4>Thông tin đơn hàng</h4>
+                    @using (Html.BeginForm("ProcessOrder", "Checkout", FormMethod.Post, new { id = "customer-form" }))
+                    {
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-lg-8 col-md-6">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Họ<span>*</span></p>
+                                                <input type="text" name="cusFirstName" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Tên<span>*</span></p>
+                                                <input type="text" name="cusLastName" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Địa chỉ<span>*</span></p>
+                                        <input type="text" class="checkout__input__add" name="cusAddress" required>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Số điện thoại<span>*</span></p>
+                                                <input type="tel" name="cusPhone" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="checkout__input">
+                                                <p>Email<span>*</span></p>
+                                                <input type="email" name="cusEmail" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="checkout__input">
+                                        <p>Ghi chú cho đơn hàng<span>*</span></p>
+                                        <input type="text" name="cusNote">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="checkout__order">
+                                        <h4>Đơn hàng của bạn</h4>
+                                        <div class="checkout__order__products">Sản phẩm <span>Giá tiền</span></div>
+                                        @foreach (var item in (List<CartModel>)Session["Cart"])
+                                        {
+                                            double p = Convert.ToDouble(item.Product.ProPrice);
+                                            int q = Convert.ToInt32(item.Quantity);
+                                            double subtotal = p * q;
+                                            <ul style="display:flex">
+                                                <li style="width:215px">@item.Product.ProName</li>
+                                                <span style="font-weight:bold">@Html.FormatValue(subtotal, "{0:00.000}")đ</span>
+                                            </ul>
+                                        }
+                                        @{
+                                            List<CartModel> temp = (List<CartModel>)Session["Cart"];
+                                            var total = temp.Sum(x => x.Quantity * x.Product.ProPrice);
+                                        }
+                                        <div class="checkout__order__total">Tổng cộng <span>@Html.FormatValue(total, "{0:00.000}") đ </span></div>
+                                        <p>Phương thức thanh toán</p>
+                                        <div class="checkout__input__checkbox">
+                                            <label>
+                                                Thanh toán khi nhận hàng
+                                                <input type="radio" name="cusPaymentType" value="Tiền mặt" required>
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </div>
+                                        <button type="submit" value="ProcessOrder" class="site-btn">Đặt hàng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    }
+                </div>
+            }
+            else
+            {
+                <img src="~/Content/img/hero/empty-cart.png" / style=" display: block; margin-left: auto; margin-right: auto; width: 609px">
+                                                <h2>Không có sản phẩm trong giỏ hàng!</h2>
+            }
+        }
+    </div>
+</section>
+<!-- Checkout Section End -->
+<script type="text/javascript">
+    $("#customer-form").validate({
+        rules: {
+            cusFirstName: {
+                required: true
+            },
+            cusLastName: {
+                required: true
+            },
+            cusEmail: {
+                required: true
+            },
+            cusPhone: {
+                required: true
+            },
+            cusAddress: {
+                required: true
+            },
+            cusNote: {
+                required: true
+            }
+        }
+    });
+</script>

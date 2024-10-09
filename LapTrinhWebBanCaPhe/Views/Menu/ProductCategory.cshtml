@@ -1,0 +1,71 @@
+﻿@model LapTrinhWebBanCaPhe.Models.HomeModel
+
+@{
+    ViewBag.Title = "ProductCategory";
+}
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-section set-bg" data-setbg="../../Content/img/breadcrumb.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="breadcrumb__text">
+                    <h2>MENU</h2>
+                    <div class="breadcrumb__option">
+                        <a href="@Url.Action("Index","HomeMain")">Trang chủ</a>
+                        <span>Menu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+<!-- Product Section Begin -->
+<section class="product spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-5">
+                <div class="sidebar">
+                    <div class="sidebar__item">
+                        <h4>Danh mục sản phẩm</h4>
+                        <ul>
+                            @foreach (var item in Model.ListCategory)
+                            {
+                                <li>
+                                    <a>
+                                        @Html.ActionLink(item.CatName, "ProductCategory", "Menu", new { @Id = item.Id }, null)
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-7">
+                <div class="filter__item">
+                    <div class="section-title product__discount__title">
+                            <h2>Tất cả sản phẩm</h2>
+                    </div>
+
+                </div>
+                <div class="row">
+                    @foreach (var item in Model.ListProduct)
+                    {
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" data-setbg="../../Content/img/product/@item.ProImage">
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="@Url.Action("Index", "MenuProductDetail", new {Id = item.ProId })">@item.ProName</a></h6>
+                                    <h5>@item.ProPrice đ</h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

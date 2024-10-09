@@ -1,0 +1,71 @@
+﻿@model IEnumerable<LapTrinhWebBanCaPhe.Context.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<p style="margin:10px">
+    <a href="@Url.Action("Create")" class="btn btn-sm btn-primary">Thêm mới sản phẩm</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Tên sản phẩm")
+        </th>
+        <th>
+            @Html.DisplayName("Ảnh")
+        </th>
+        <th>
+            @Html.DisplayName("Giá")
+        </th>
+        <th>
+            @Html.DisplayName("Mô tả")
+        </th>
+        <th>
+            @Html.DisplayName("Hiện ở trang chủ")
+        </th>
+        <th>
+            @Html.DisplayName("Loại sản phẩm")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProName)
+            </td>
+            <td>
+                <img src="~/Content/img/product/@item.ProImage" width="100px" height="100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowOnHomePage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CatName)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit",new { id = item.ProId })" class="btn btn-sm btn-primary">Edit</a> <br />
+                <a href="@Url.Action("Details",new { id = item.ProId })" class="btn btn-sm btn-success">Details</a> <br />
+                <a href="@Url.Action("Delete",new { id = item.ProId })" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+    
+</table>
+<style>
+    td a{
+        width:60px;
+        margin-top:5px;
+    }
+</style>
+
+

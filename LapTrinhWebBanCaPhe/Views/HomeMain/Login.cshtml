@@ -1,0 +1,60 @@
+﻿@model LapTrinhWebBanCaPhe.Context.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | Registration Page</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/admin/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="~/Content/admin/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/admin/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition register-page" style="background-image: url(../../Content/img/hero/bannermenu.jpg); background-size: cover">
+    <div class="register-box" style="box-shadow:1px 1px 5px 2px">
+        <div class="card">
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Đăng nhập</p>
+
+                <form method="post">
+                    @using (Html.BeginForm("Login", "HomeMain", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.Email, "", new { @class = "form-control", type = "email", @placeholder = "Email", required = "required" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control", type = "password", @placeholder = "Mật khẩu", required = "required" })
+                        </div>
+                        <h4 style="color:red">@ViewBag.LoginFail</h4>
+                        <div class="form-group">
+                            <input type="submit" value="Đăng nhập" class="btn btn-primary" />
+                        </div>
+                    }
+                </form>
+                <a href="@Url.Action("Register","HomeMain")" class="text-center">Chưa có tài khoản? Đăng ký ở đây</a>
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+    <!-- /.register-box -->
+    <!-- jQuery -->
+    <script src="~/Content/admin/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Content/admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/admin/dist/js/adminlte.min.js"></script>
+</body>
+</html>

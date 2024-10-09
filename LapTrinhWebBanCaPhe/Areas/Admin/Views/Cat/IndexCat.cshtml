@@ -1,0 +1,33 @@
+﻿@model IEnumerable<LapTrinhWebBanCaPhe.Context.Category>
+
+@{
+    ViewBag.Title = "IndexCat";
+}
+<p style="margin:10px">
+    <a href="@Url.Action("Create")" class="btn btn-sm btn-primary">Tạo danh mục</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Mã sản phẩm")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CatName)
+        </td>
+        <td>
+            <a href="@Url.Action("Delete",new { id = item.Id })" class="btn btn-sm btn-danger">Delete</a>
+        </td>
+    </tr>
+}
+</table>
+<style>
+        td a {
+            width: 60px;
+            margin-top: 5px;
+        }
+</style>

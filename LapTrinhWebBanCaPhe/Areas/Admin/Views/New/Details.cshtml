@@ -1,0 +1,52 @@
+﻿@model LapTrinhWebBanCaPhe.Context.News
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div>
+    <h4>
+        Nhà cung cấp
+    </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Ảnh nhà cung cấp")
+        </dt>
+
+        <dd>
+            <img src="~/Content/img/blog/@Model.NewsImage" width="100px" height="100px" />
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Số điện thoại")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewsDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Tên nhà cung cấp")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewsTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Nguyên liệu cung cấp")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NewsDescription)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.NewsId }) |
+    @Html.ActionLink("Back to List", "IndexNew")
+</p>

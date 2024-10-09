@@ -1,0 +1,230 @@
+﻿@model LapTrinhWebBanCaPhe.Models.HomeModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!-- Hero Section Begin -->
+<section class="hero" style="margin-top:30px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>Danh mục</span>
+                    </div>
+                    <ul>
+                        <!--Lấy dữ liệu từ database-->
+                        @foreach (var item in Model.ListCategory)
+                        {
+                            <li>
+                                @Html.ActionLink(item.CatName, "ProductCategory", "Menu", new { @Id = item.Id }, null)
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    <div class="hero__search__form">
+                        @*Tạo form submit về action tìm kiếm*@
+                        @using (Html.BeginForm("SearchResult", "Search"))
+                        {
+                            <form action="#">
+                                <input type="text" name="sTuKhoa" placeholder="Tìm kiếm sản phẩm" required>
+                                <button type="submit" class="site-btn">Tìm kiếm</button>
+                            </form>
+                        }
+                    </div>
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>0904512575</h5>
+                            <span>Hỗ trợ 24/7</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero__item set-bg" data-setbg="../../Content/img/hero/bannermenu.jpg" style="background-size:105%">
+                    <div class="hero__text" style="margin-left:-25px">
+                        <span>TRÀ SỮA</span>
+                        <h2>Vị ngọt từ <br /> trái tim</h2>
+                        <p>Giao hàng miễn phí</p>
+                        <a href="@Url.Action("Index", "Menu")" class="primary-btn">Mua ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- Categories Section Begin -->
+<section class="categories">
+    <div class="container">
+        <div class="row">
+            <div class="categories__slider owl-carousel">
+                @foreach (var item in Model.ListCategory)
+                {
+                    <div class="col-lg-3">
+                        <div class="categories__item set-bg" data-setbg="../../Content/img/hero/catslide.jpg">
+                            <h5>
+                                @Html.ActionLink(item.CatName, "ProductCategory", "Menu", new { @Id = item.Id }, null)
+                            </h5>
+                        </div>
+                    </div>
+                }
+                </div>
+        </div>
+    </div>
+</section>
+<!-- Categories Section End -->
+<!-- Featured Section Begin -->
+<section class="featured spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <h2>Sản phẩm nổi bật</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row featured__filter">
+            <!--Lấy dữ liệu từ database-->
+            @foreach (var item in Model.ListProduct.Where(n => n.ShowOnHomePage == true)) //Lấy ra sản phẩm có trường ShowOnHomePage có giá trị là 1
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="../../Content/img/product/@item.ProImage">
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="@Url.Action("Index","MenuProductDetail", new {Id = item.ProId })">@item.ProName</a></h6>
+                            <h5>@item.ProPrice đ</h5>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!-- Featured Section End -->
+<!-- Latest Product Section Begin -->
+<section class="latest-product spad" style="margin-top:-110px;margin-bottom:50px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title from-blog__title">
+                    <h2>Đánh giá</h2>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Mới nhất</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.ListProduct.Take(3).Reverse())
+                            {
+                                <a href="@Url.Action("Index","MenuProductDetail", new {Id = item.ProId })" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Content/img/product/@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@item.ProPrice VNĐ </span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.ListProduct.Take(3))
+                            {
+                                <a href="@Url.Action("Index", "MenuProductDetail", new { Id = item.ProId })" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Content/img/product/@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@item.ProPrice VNĐ </span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Top đánh giá</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.ListProduct.Take(6).Skip(3).Reverse())
+                            {
+                                <a href="@Url.Action("Index", "MenuProductDetail", new { Id = item.ProId })" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Content/img/product/@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@item.ProPrice VNĐ </span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.ListProduct.Take(6).Skip(3))
+                            {
+                                <a href="@Url.Action("Index", "MenuProductDetail", new { Id = item.ProId })" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Content/img/product/@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@item.ProPrice VNĐ </span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="latest-product__text">
+                    <h4>Review</h4>
+                    <div class="latest-product__slider owl-carousel">
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.ListProduct.Take(9).Skip(6).Reverse())
+                            {
+                                <a href="@Url.Action("Index", "MenuProductDetail", new { Id = item.ProId })" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Content/img/product/@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@item.ProPrice VNĐ </span>
+                                    </div>
+                                </a>
+                            }
+
+                        </div>
+                        <div class="latest-prdouct__slider__item">
+                            @foreach (var item in Model.ListProduct.Take(9).Skip(6))
+                            {
+                                <a href="@Url.Action("Index", "MenuProductDetail", new { Id = item.ProId })" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img src="~/Content/img/product/@item.ProImage" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>@item.ProName</h6>
+                                        <span>@item.ProPrice VNĐ </span>
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Latest Product Section End -->

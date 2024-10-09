@@ -1,0 +1,65 @@
+﻿@model LapTrinhWebBanCaPhe.Context.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayName("Tên sản phẩm")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProName)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Ảnh")
+        </dt>
+
+        <dd>
+            <img src="~/Content/img/product/@Model.ProImage" width="100px" height="100px" />
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Giá")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Mô tả")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Hiện ở trang chủ")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ShowOnHomePage)
+        </dd>
+
+        <dt>
+            @Html.DisplayName("Loại sản phẩm")
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category.CatName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
